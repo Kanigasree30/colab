@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kongu Connect | Student Network</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(90deg, #f9f9ff 0%, #ffffff 100%);
+            color: #111c2c;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 64px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: #f9f9ff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 64px;
+        }
+
+        .navbar-brand {
+            font-size: 48px;
+            font-weight: 700;
+            color: #2b6cb0;
+            letter-spacing: -0.96px;
+            font-family: 'Montserrat', sans-serif;
+            white-space: nowrap;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            flex: 1;
+            margin-left: 48px;
+        }
+
+        .navbar-link {
+            font-size: 20px;
+            font-weight: 600;
+            color: #414750;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            transition: color 0.3s;
+        }
+
+        .navbar-link:hover {
+            color: #2b6cb0;
+        }
+
+        .navbar-link.active {
+            color: #2b6cb0;
+            border-bottom: 2px solid #2b6cb0;
+            padding-bottom: 6px;
+        }
+
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .search-icon {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #e5e7eb;
+            background: #f0f3ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .btn-join {
+            padding: 8px 24px;
+            background: #2b6cb0;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-join:hover {
+            background: #1e4f7f;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            gap: 48px;
+            align-items: center;
+            justify-content: center;
+            padding: 128px 64px;
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .hero-heading {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 60px;
+            color: #111c2c;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .hero-heading .highlight {
+            color: #2b6cb0;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            line-height: 28px;
+            color: #414750;
+            max-width: 512px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn-primary {
+            padding: 12px 32px;
+            background: #2b6cb0;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: background 0.3s;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-primary:hover {
+            background: #1e4f7f;
+        }
+
+        .btn-secondary {
+            padding: 12px 33px;
+            background: white;
+            color: #2b6cb0;
+            border: 2px solid #2b6cb0;
+            border-radius: 4px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f3ff;
+        }
+
+        .achievements {
+            display: flex;
+            gap: 32px;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 17px;
+            width: 100%;
+        }
+
+        .achievement-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .achievement-number {
+            font-size: 32px;
+            font-weight: 600;
+            color: #2b6cb0;
+            line-height: 40px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .achievement-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #414750;
+            letter-spacing: 0.14px;
+            line-height: 20px;
+        }
+
+        .hero-visual {
+            flex: 1;
+            height: 500px;
+            background: #f0f3ff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 17px;
+            box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.08);
+            font-size: 12px;
+        }
+
+        .floating-card.project {
+            width: 256px;
+            top: 48px;
+            right: 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .floating-card.chat {
+            width: 288px;
+            bottom: 48px;
+            left: 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: #dee8ff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .card-badge {
+            background: #feda5a;
+            color: #745f00;
+            padding: 4px 8px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #111c2c;
+            padding-top: 4px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .card-subtitle {
+            font-size: 12px;
+            color: #414750;
+            font-weight: 600;
+        }
+
+        .card-tag {
+            background: #e7eeff;
+            color: #414750;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 8px;
+        }
+
+        .chat-divider {
+            border-top: 1px solid #e5e7eb;
+            padding-top: 13px;
+            padding-bottom: 13px;
+        }
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .chat-message {
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        .chat-message.sent {
+            background: #f0f3ff;
+            color: #111c2c;
+        }
+
+        .chat-message.received {
+            background: #2b6cb0;
+            color: white;
+        }
+
+        .chat-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+        }
+
+        .chat-avatar {
+            width: 32px;
+            height: 32px;
+            background: #d8e3fa;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .chat-user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-user-name {
+            font-weight: 700;
+            color: #111c2c;
+        }
+
+        .chat-user-detail {
+            font-weight: 600;
+            color: #414750;
+            font-size: 11px;
+        }
+
+        /* Form Section */
+        .form-section {
+            background: linear-gradient(135deg, #f0f3ff 0%, #f9f9ff 100%);
+            padding: 80px 64px;
+            margin: 80px 0;
+            border-radius: 12px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-section h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #111c2c;
+            margin-bottom: 16px;
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+        }
+
+        .form-section p {
+            font-size: 16px;
+            line-height: 24px;
+            color: #414750;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #111c2c;
+            margin-bottom: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2b6cb0;
+            box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.1);
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 14px 32px;
+            background: #2b6cb0;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            transition: background 0.3s;
+            margin-top: 16px;
+        }
+
+        .form-submit:hover {
+            background: #1e4f7f;
+        }
+
+        .form-submit:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .form-message {
+            margin-top: 16px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+            display: none;
+        }
+
+        .form-message.success {
+            background: #d1fae5;
+            color: #065f46;
+            display: block;
+        }
+
+        .form-message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            display: block;
+        }
+
+        /* Footer */
+        .footer {
+            background: #d8e3fa;
+            border-top: 1px solid #e5e7eb;
+            padding: 48px 64px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111c2c;
+            margin-bottom: 16px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .footer-title.brand {
+            color: #2b6cb0;
+        }
+
+        .footer-copyright {
+            font-size: 14px;
+            line-height: 20px;
+            color: #414750;
+            margin-bottom: 16px;
+        }
+
+        .footer-link {
+            font-size: 16px;
+            line-height: 24px;
+            color: #414750;
+            text-decoration: none;
+            display: block;
+            margin-top: 12px;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: #2b6cb0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+
+            .navbar-content {
+                padding: 0 24px;
+                height: 64px;
+            }
+
+            .navbar-brand {
+                font-size: 32px;
+            }
+
+            .navbar-links {
+                display: none;
+            }
+
+            .hero {
+                flex-direction: column;
+                padding: 64px 24px;
+                gap: 32px;
+            }
+
+            .hero-heading {
+                font-size: 32px;
+                line-height: 40px;
+            }
+
+            .hero-visual {
+                height: 300px;
+                width: 100%;
+            }
+
+            .floating-card.project,
+            .floating-card.chat {
+                position: relative;
+                width: 100%;
+                margin: 16px 0;
+            }
+
+            .form-section {
+                padding: 48px 24px;
+                margin: 48px 0;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 32px;
+            }
+
+            .footer {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-brand">Kongu Connect</div>
+            <div class="navbar-links">
+                <a href="#projects" class="navbar-link active">Projects</a>
+                <a href="#find-students" class="navbar-link">Find Students</a>
+                <a href="#dashboard" class="navbar-link">Dashboard</a>
+                <a href="#community" class="navbar-link">Community</a>
+            </div>
+            <div class="navbar-actions">
+                <div class="search-icon">🔍</div>
+                <button class="btn-join">Join Now</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-heading">
+                Kongu Engineering<br>
+                College Student<br>
+                Network<br>
+                <span class="highlight">Build Better Projects.</span><br>
+                Learn From Each<br>
+                Other.
+            </h1>
+
+            <p class="hero-description">
+                The official digital campus for KEC students to collaborate,
+                innovate, and showcase their academic excellence.
+                Connect with peers across departments and bring your
+                ideas to life.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="btn-primary">Explore Projects</button>
+                <button class="btn-secondary">Find a Teammate</button>
+            </div>
+
+            <div class="achievements">
+                <div class="achievement-item">
+                    <div class="achievement-number">1,200+</div>
+                    <div class="achievement-label">Active Students</div>
+                </div>
+                <div class="achievement-item">
+                    <div class="achievement-number">180+</div>
+                    <div class="achievement-label">Verified Projects</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <!-- Floating Project Card -->
+            <div class="floating-card project">
+                <div class="card-header">
+                    <div class="card-icon">🔷</div>
+                    <div class="card-badge">✓ Verified</div>
+                </div>
+                <div class="card-title">Smart Grid IoT</div>
+                <div class="card-subtitle">EEE Dept • 3 Members</div>
+                <div class="card-tag">Looking for UI Dev</div>
+            </div>
+
+            <!-- Floating Chat Preview -->
+            <div class="floating-card chat">
+                <div class="chat-user">
+                    <div class="chat-avatar"></div>
+                    <div class="chat-user-info">
+                        <div class="chat-user-name">Karthik R.</div>
+                        <div class="chat-user-detail">CSE, 3rd Year</div>
+                    </div>
+                </div>
+                <div class="chat-divider">
+                    <div class="chat-messages">
+                        <div class="chat-message sent">
+                            Hi Priya! Are you still looking for a backend dev for the campus navigation app?
+                        </div>
+                        <div class="chat-message received">
+                            Yes! We're using Node.js. Have you worked with it?
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="form-section">
+        <div class="form-container">
+            <h2>Connect With Us</h2>
+            <p>Join Kongu Connect and start collaborating with fellow students</p>
+
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                </div>
+
+                <button type="submit" class="form-submit" id="submitBtn">Submit</button>
+                <div class="form-message" id="formMessage"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <div class="footer-title brand">Kongu Connect</div>
+                <p class="footer-copyright">© 2024 Kongu Engineering College. All verified student contributions acknowledged.</p>
+            </div>
+            <div class="footer-column">
+                <div class="footer-title">Platform</div>
+                <a href="#" class="footer-link">Projects</a>
+                <a href="#" class="footer-link">Campus Directory</a>
+            </div>
+            <div class="footer-column">
+                <div class="footer-title">Legal</div>
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms of Service</a>
+            </div>
+            <div class="footer-column">
+                <div class="footer-title">Help</div>
+                <a href="#" class="footer-link">Support</a>
+                <a href="#" class="footer-link">Guidelines</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Hidden iframe for form submission (works with file:// protocol) -->
+    <iframe name="hidden_iframe" style="display:none;"></iframe>
+
+    <script>
+        // Your deployed AppScript URL
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxU72McZ1UlNMOw4OPNq49i0sT2brd8xEwYtRv4flvLRe-v0p3hwn86Q4erpP0FScuO/exec';
+
+        const form = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formMessage = document.getElementById('formMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+
+            // Validate
+            if (!name || !email || !phone) {
+                showError('Please fill in all fields');
+                return;
+            }
+
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            // Build URL with query parameters
+            const url = SCRIPT_URL + '?' + new URLSearchParams({
+                name: name,
+                email: email,
+                phone: phone
+            });
+
+            // Submit to hidden iframe (works with file:// protocol)
+            const iframe = document.querySelector('iframe[name="hidden_iframe"]');
+            iframe.src = url;
+
+            // Wait a bit and show success message
+            setTimeout(() => {
+                showSuccess('Thank you! Your information has been submitted.');
+                form.reset();
+                submitBtn.textContent = 'Submit';
+                submitBtn.disabled = false;
+            }, 1000);
+        });
+
+        function showSuccess(message) {
+            formMessage.textContent = message;
+            formMessage.className = 'form-message success';
+            setTimeout(() => {
+                formMessage.className = 'form-message';
+            }, 5000);
+        }
+
+        function showError(message) {
+            formMessage.textContent = message;
+            formMessage.className = 'form-message error';
+            setTimeout(() => {
+                formMessage.className = 'form-message';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
